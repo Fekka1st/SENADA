@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\KelolaPT;
-use App\Models\direktori_PT;
+use App\Imports\Kelola_kerjasama_pts;
+use App\Models\data_kerjasama_PT;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class kelolaPTController extends Controller
+class datakerjasamaPT extends Controller
 {
     //
     public function index(){
-        $data_pt = direktori_PT::all();
-        return view ('Kelola-Data-PT.index',compact('data_pt'));
+        $data_pt = data_kerjasama_PT::all();
+        return view ('Kelola-KerjaSama-PTS.index',compact('data_pt'));
     }
 
     public function import(Request $request)
@@ -22,10 +22,14 @@ class kelolaPTController extends Controller
         ]);
 
         try {
-            Excel::import(new KelolaPT, $request->file('file'));
-            return redirect()->back()->with('success', 'Data berhasil diimport!');
+            Excel::import(new Kelola_kerjasama_pts, $request->file('file'));
+            return redirect()->back()->with('success', 'Data Berhasil Di import!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' =>'Data Gagal Di import!']);
         }
+    }
+
+    public function store(){
+
     }
 }

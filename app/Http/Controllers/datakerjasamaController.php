@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\datamou;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class datakerjasamaController extends Controller
 {
@@ -34,6 +35,7 @@ class datakerjasamaController extends Controller
                 'keterangan_dokumen' => 'nullable|string',
                 'link_dokumen' => 'nullable|string',
                 'bentuk_tindak_lanjut' => 'nullable|string',
+                'jenis_file' => 'required'
             ];
 
             $messages = [
@@ -66,10 +68,30 @@ class datakerjasamaController extends Controller
                 'link_dokumen.string' => 'Link Dokumen harus berupa teks.',
                 'bentuk_tindak_lanjut.string' => 'Bentuk Tindak Lanjut harus berupa teks.',
             ];
+            $validatedData = $request->validate($rules, $messages);
 
+            if ($validatedData['jenis_file'] === 'file') {
+                if ($request->hasFile('file')) {
+                    $originalName = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_FILENAME);
+                    $extension = $request->file('file')->getClientOriginalExtension();
+                    $fileName = $originalName . '_' . now()->format('Ymd_His') . '.' . $extension;
+                    $filePath = $request->file('file')->storeAs('uploads/mou', $fileName, 'public');
+                    $validatedData['file'] = Storage::url($filePath);
+                } else {
+                    return redirect()->back()->withErrors(['file' => 'File harus diunggah jika jenis file adalah "file".']);
+                }
+            } elseif ($validatedData['jenis_file'] === 'googledrive') {
+                if (empty($validatedData['file'])) {
+                    return redirect()->back()->withErrors(['link_dokumen' => 'Link Google Drive harus diisi jika jenis file adalah "googledrive".']);
+                }
+            }
+            datamou::create($validatedData);
 
-        } catch (\Throwable $th) {
-            //throw $th;
+            return redirect()->route('datamou.index')->with('success', 'Data MoU berhasil disimpan.');
+        } catch (\Throwable $e) {
+            return redirect()->back()->withErrors(['database' => 'Terjadi kesalahan pada database: ' . $e->getMessage()]);
+        }catch (\Exception $e) {
+            return redirect()->back()->withErrors(['general' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }

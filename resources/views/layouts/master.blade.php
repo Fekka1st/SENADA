@@ -9,7 +9,9 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href={{asset('asset/vendors/ti-icons/css/themify-icons.css')}}>
     <link rel="stylesheet" href={{asset('asset/vendors/css/vendor.bundle.base.css')}}>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"> --}}
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap4.css"> --}}
     {{-- <link rel="stylesheet" type="text/css" href=cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css> --}}
@@ -29,11 +31,10 @@
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="navbar-brand brand-logo mr-2" href="index.html">
-                    <img src={{asset('logo/logo-lldikti.png')}} class="mr-2"
-                        alt="logo"/>
+                    <img src={{asset('logo/logo-lldikti.png')}} class="mr-2" alt="logo" />
                 </a>
                 <a class="navbar-brand brand-logo-mini" href="index.html"><img src={{asset('logo/logo-lldikti.png')}}
-                        alt="logo"/></a>
+                        alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -106,7 +107,8 @@
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button  class="dropdown-item" type="submit"><i class="ti-angle-double-left text-danger"></i>Logout</button>
+                                <button class="dropdown-item" type="submit"><i
+                                        class="ti-angle-double-left text-danger"></i>Logout</button>
                                 {{-- <a class="dropdown-item" type="submit">
                                     <i class="ti-power-off text-primary"></i>
                                     Logout
@@ -126,6 +128,7 @@
             @if(Auth()->user()->role == 1)
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
+                    <li class="nav-header">Menu</li>
                     <li class="nav-item" id="dashboard">
                         <a class="nav-link" href={{route('dashboard')}}>
                             <i class="icon-grid menu-icon"></i>
@@ -139,22 +142,55 @@
                         </a>
                     </li>
                     <li class="nav-item" id="data-pt">
-                        <a class="nav-link" href="Data-KerjaSama-pts">
+                        <a class="nav-link" href="/Data-KerjaSama-pts">
                             <i class="ti-bookmark menu-icon"></i>
                             <span class="menu-title">Data Kerjasama PTS
                             </span>
                         </a>
                     </li>
                     <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="kelola-PT">
+                        <a class="nav-link" href="/kelola-PT">
                             <i class="ti-user menu-icon"></i>
                             <span class="menu-title">Data Kelola PT</span>
                         </a>
                     </li>
+                    <li class="nav-header">Master Data</li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="kelola-jenis-kerjasama">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Jenis Kerja Sama</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="kelola-jenis-mitra">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Jenis Mitra</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="kelola-status-dokument">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Status Dokument</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item" id="kelolamaster">
+                            <a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="ti-user menu-icon"></i>
+                                <span class="menu-title">Kelola Data Master</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                          <div class="collapse" id="collapseExample">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="kelola-jenis-kerjasama">Jenis Kerja Sama</a></li>
+                                <li class="nav-item"><a class="nav-link" href="kelola-jenis-mitra">Jenis Kerja Sama <br> Mitra</a></li>
+                                <li class="nav-item"><a class="nav-link" href="kelola-status-dokument">Status Dokument</a></li>
+                              </ul>
+                          </div>
+                    </li> --}}
                     <li class="nav-item" id="manajemen-user">
                         <a class="nav-link" href="manajemen-user">
                             <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Kelola User</span>
+                            <span class="menu-title">Kelola User</span>
                         </a>
                     </li>
                 </ul>
@@ -183,7 +219,7 @@
                 </ul>
             </nav>
             @endif
-           @yield('content')
+            @yield('content')
         </div>
     </div>
     <script>
@@ -194,13 +230,15 @@
                 '/data-kerjasama-lldikti': 'data-kerjasama',
                 '/Data-KerjaSama-pts': 'data-pt',
                 '/manajemen-user': 'manajemen-user'
-                '/kelola-PT' : 'kelola-pt'
+                '/kelola-PT': 'kelola-pt'
+                '/kelola': 'kelolamaster'
             };
             const activeMenuId = menuMap[currentPath];
             if (activeMenuId) {
                 $(`#${activeMenuId}`).addClass('active');
             }
         });
+
     </script>
     <script src={{asset('asset/vendors/js/vendor.bundle.base.js')}}></script>
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
@@ -212,7 +250,9 @@
     <script src={{asset('asset/js/template.js')}}></script>
     <script src={{asset('asset/js/dashboard.js')}}></script>
     <script src={{asset('asset/js/Chart.roundedBarCharts.js')}}></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"
+        integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('script')
 </body>
 

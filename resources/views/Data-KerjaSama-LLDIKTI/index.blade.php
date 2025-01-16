@@ -18,7 +18,7 @@
                             <a href={{route('kerjasama-lldikti.import')}} class="btn btn-success">Import Excel</a>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped" id="mytable">
+                            <table class="table table-striped" id="myTable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -72,7 +72,25 @@
 @section('script')
     <script>
     $(document).ready(function () {
-        $('#mytable').DataTable();
+        $('#myTable').DataTable({
+                "pageLength": 5, // Tampilkan 5 data per halaman
+                "lengthMenu": [5, 10, 20, 50], // Opsi filtering
+                "language": {
+                    "emptyTable": "Data tidak tersedia",
+                    "lengthMenu": "Tampilkan _MENU_ data per halaman",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+                    "infoEmpty": "Tidak ada data yang tersedia",
+                    "infoFiltered": "(difilter dari total _MAX_ data)",
+                    "search": "Cari:",
+                    "zeroRecords": "Tidak ditemukan data yang sesuai",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Berikutnya",
+                        "previous": "Sebelumnya"
+                    }
+                }
+            });
     });
     </script>
 @endsection

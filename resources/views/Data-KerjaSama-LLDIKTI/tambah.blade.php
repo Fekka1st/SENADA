@@ -175,14 +175,42 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="inputFile" class="form-label"><strong>File (Link Google Drive):</strong></label>
+                                <label for="jenisFile" class="form-label"><strong>Pilih Tipe File:</strong></label>
+                                <select
+                                    name="jenis_file"
+                                    class="form-control @error('jenis_file') is-invalid @enderror"
+                                    id="jenisFile"
+                                    onchange="toggleInputField()">
+                                    <option value="" disabled selected>Pilih tipe file</option>
+                                    <option value="google_drive">Google Drive</option>
+                                    <option value="file_upload">File Upload</option>
+                                </select>
+                                @error('jenis_file')
+                                    <div class="form-text text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3" id="googleDriveField" style="display: none;">
+                                <label for="inputGoogleDrive" class="form-label"><strong>Link Google Drive:</strong></label>
                                 <textarea
-                                    name="link_dokumen"
-                                    class="form-control @error('link_dokumen') is-invalid @enderror"
-                                    id="inputFile"
+                                    name="file"
+                                    class="form-control @error('file') is-invalid @enderror"
+                                    id="inputGoogleDrive"
                                     placeholder="Masukkan link Google Drive di sini..."
                                     rows="3"></textarea>
-                                @error('link_dokumen')
+                                @error('file')
+                                    <div class="form-text text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3" id="fileUploadField" style="display: none;">
+                                <label for="inputFileUpload" class="form-label"><strong>Upload File:</strong></label>
+                                <input
+                                    type="file"
+                                    name="file"
+                                    class="form-control @error('file') is-invalid @enderror"
+                                    id="inputFileUpload">
+                                @error('file')
                                     <div class="form-text text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -194,7 +222,8 @@
                                     style="height:150px"
                                     name="bentuk_tindak_lanjut"
                                     id="inputBentukTindakLanjut"
-                                    placeholder="Bentuk Tindak Lanjut"></textarea>
+                                    placeholder="Bentuk Tindak Lanjut"
+                                    value="{{ old('bentuk_tidak_lanjut') }}">></textarea>
                                 @error('bentuk_tindak_lanjut')
                                     <div class="form-text text-danger">{{ $message }}</div>
                                 @enderror
@@ -227,5 +256,23 @@
     $(document).ready(function () {
         $('#mytable').DataTable();
     });
+    </script>
+    <script>
+        function toggleInputField() {
+            const selectedType = document.getElementById('jenisFile').value;
+            const googleDriveField = document.getElementById('googleDriveField');
+            const fileUploadField = document.getElementById('fileUploadField');
+
+            if (selectedType === 'google_drive') {
+                googleDriveField.style.display = 'block';
+                fileUploadField.style.display = 'none';
+            } else if (selectedType === 'file_upload') {
+                googleDriveField.style.display = 'none';
+                fileUploadField.style.display = 'block';
+            } else {
+                googleDriveField.style.display = 'none';
+                fileUploadField.style.display = 'none';
+            }
+        }
     </script>
 @endsection

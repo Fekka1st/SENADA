@@ -24,11 +24,11 @@
                     <div class="mb-3">
                         <label for="password_up" class="form-label">Password</label>
                         <input type="text" class="form-control" id="password_up" name="password_up" >
-                        <p>Passowrd (Opsional)</p>
+                        <p>Password (Opsional)</p>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-select"  id="role_up" name="role" required>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control" id="role" name="role" required>
                             <option value="" disabled selected>-- Pilih Role --</option>
                             <option value="1">Admin</option>
                             <option value="2">User</option>
@@ -43,7 +43,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Upadate</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                       </div>
                 </form>
             </div>
