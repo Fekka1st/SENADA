@@ -100,7 +100,7 @@
                 $('#email_up').val(data.email);
                 $('#password_up').val(data.password);
                 $('#role_up').val(data.role);
-                $('#updateForm').attr('action', '/manajemen-user/' + data.id)
+                $('#updateForm').attr('action', '{{ route('manajemen-user.update', '') }}'.replace(' ', '') + '/' + data.id);
                 $('#editModal').modal('show');
             });
         });

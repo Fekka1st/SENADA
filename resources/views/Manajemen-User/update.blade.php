@@ -23,12 +23,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="password_up" class="form-label">Password</label>
-                        <input type="text" class="form-control" id="password_up" name="password_up" >
+                        <input type="text" class="form-control" id="password_up" name="password" >
                         <p>Password (Opsional)</p>
                     </div>
                     <div class="form-group">
                         <label for="role">Role</label>
-                        <select class="form-control" id="role" name="role" required>
+                        <select class="form-control" id="role_up" name="role" required>
                             <option value="" disabled selected>-- Pilih Role --</option>
                             <option value="1">Admin</option>
                             <option value="2">User</option>

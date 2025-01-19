@@ -67,14 +67,7 @@ class jenisKerjasamaController extends Controller
 
     public function destroy(string $id)
     {
-        // $userCount = jeniskerjasama::count();
-        // if ($userCount <= 1) {
-        //     return redirect("kelola-jenis-kerjasama")->with(
-        //         'error', 'Tidak bisa menghapus data, karena hanya ada satu pengguna.'
-        //     );
-        // }
-
-        $data = jeniskerjasama::find($id);
+     $data = jeniskerjasama::find($id);
         if ($data) {
             $data->delete();
             return redirect("kelola-jenis-kerjasama")->with(

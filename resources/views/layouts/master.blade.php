@@ -17,7 +17,7 @@
     {{-- <link rel="stylesheet" type="text/css" href=cdn.datatables.net/2.2.1/css/dataTables.dataTables.min.css> --}}
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     {{-- <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet"> --}}
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.css">
     <link rel="stylesheet" href={{asset('asset/vendors/feather/feather.css')}}>
     <link rel="stylesheet" href={{asset('asset/css/vertical-layout-light/style.css')}}>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap5.css">

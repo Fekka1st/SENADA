@@ -1,5 +1,7 @@
 @extends('layouts.master')
-
+@section('title')
+<title>Direktori PT | LLDIKTI</title>
+@endsection
 @section('content')
 <div class="main-panel">
     <div class="content-wrapper">
@@ -13,9 +15,7 @@
                         {{-- <div class="pb-2">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Tambah Data </button>
                         </div> --}}
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
-                            Import Data Excel
-                        </button>
+
                         <div class="table-responsive">
                             <table id="myTable" class="table table-striped table-fluid">
                                 <thead>
@@ -101,8 +101,23 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable({
+            dom: '<"top-toolbar"B>lfrtip',
+            buttons: [{
+                    extend: 'excel',
+                    text: 'Cetak Excel',
+                    className: 'btn btn-info',
+                    title: 'Data Directory PT',
+                    messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
+                },{
+                    extend: 'pdf',
+                    text: 'Cetak PDF',
+                    className: 'btn btn-info',
+                    title: 'Data Directory PT',
+                    messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
+                }
+            ],
             "pageLength": 10, // Tampilkan 5 data per halaman
-            "lengthMenu": [10, 25, 50,100], // Opsi filtering
+            "lengthMenu": [10, 25, 50, 100], // Opsi filtering
             "language": {
                 "emptyTable": "Data tidak tersedia",
                 "lengthMenu": "Tampilkan _MENU_ data per halaman",
@@ -119,6 +134,11 @@
                 }
             }
         });
+        $("div.top-toolbar").prepend(`
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
+                            Import Data Excel
+                        </button>
+            `);
     });
     $(document).on('click', '#btn-edit-post', function () {
         var id = $(this).data('id');
@@ -133,9 +153,20 @@
 
 </script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
 @endsection
 
 
 @section('css')
-
+<style>
+    .dt-length {
+        margin-top: 20px;
+    }
+</style>
 @endsection

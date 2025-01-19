@@ -21,9 +21,24 @@ class datamou extends Model
         'nomor_agenda_mitra',
         'nomor_agenda_lldikti',
         'status',
-        'keterangan',
+        'keterangan_dokumen',
         'jenis_file',
         'file',
         'bentuk_tindak_lanjut'
     ];
+
+    public function jenisMitra()
+    {
+        return $this->belongsTo(jenismitra::class, 'jenis_mitra');
+    }
+
+    public function jenisKerjasama()
+    {
+        return $this->belongsTo(jeniskerjasama::class, 'jenis_kerjasama');
+    }
+
+    public function statusDokumen()
+    {
+        return $this->belongsTo(statusdokument::class, 'status');
+    }
 }
