@@ -12,35 +12,61 @@
                         <div class="d-flex justify-content-between">
                             <p class="card-title">Data Directori PT</p>
                         </div>
-                        {{-- <div class="pb-2">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Tambah Data </button>
-                        </div> --}}
-
                         <div class="table-responsive">
                             <table id="myTable" class="table table-striped table-fluid">
                                 <thead>
                                     <tr>
                                         <th width=3% class="text-center">No</th>
+                                        <th>Kode PT</th>
                                         <th class="text-center">Nama Perguruan Tinggi</th>
+                                        <th class="text-center">MoU</th>
+                                        <th class="text-center">MoA</th>
+                                        <th class="text-center">IA</th>
+                                        <th class="text-center">Jumlah</th>
                                         <th class="text-center">Akreditasi</th>
-                                        <th class="text-center">Alamat</th>
                                         <th class="text-center">Jenis PT</th>
                                         <th class="text-center">Domisili</th>
                                         <th class="text-center">Provinsi</th>
+                                        <th class="text-center">Alamat</th>
+                                        <th class="text-center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data_pt as $data => $datas)
                                     <tr id="index_{{ $datas->id }}">
-                                        <td>{{$data + 1}}</td>
+                                        <td>{{ $data + 1 }}</td>
+                                        <td>{{ $datas->kode_pt }}</td>
+                                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                        title="{{ $datas->nama_pt }}">{{ $datas->nama_pt }}</td>
+                                        <td>{{ optional($datas->kerjasama->first())->jumlah_mou ?? '-' }}</td>
+                                        <td>{{ optional($datas->kerjasama->first())->jumlah_moa ?? '-' }}</td>
+                                        <td>{{ optional($datas->kerjasama->first())->jumlah_ia ?? '-' }}</td>
                                         <td>
-                                            {{$datas->kode_pt}} - {{$datas->nama_pt}}
+                                            @php
+                                                $jumlah_mou = optional($datas->kerjasama->first())->jumlah_mou ?? 0;
+                                                $jumlah_moa = optional($datas->kerjasama->first())->jumlah_moa ?? 0;
+                                                $jumlah_ia = optional($datas->kerjasama->first())->jumlah_ia ?? 0;
+                                                $total = $jumlah_mou + $jumlah_moa + $jumlah_ia;
+                                            @endphp
+                                            {{ $total > 0 ? $total : '-' }}
                                         </td>
-                                        <td>{{$datas->akreditasi}}</td>
-                                        <td> {{$datas->alamat}}</td>
-                                        <td>{{$datas->jenis_pt}}</td>
-                                        <td>{{$datas->domisili}}</td>
-                                        <td>{{$datas->provinsi}}</td>
+                                        <td>{{ $datas->akreditasi }}</td>
+                                        <td>{{ $datas->jenis_pt }}</td>
+                                        <td>{{ $datas->domisili }}</td>
+                                        <td>{{ $datas->provinsi }}</td>
+                                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                        title="{{ $datas->alamat }}">{{ $datas->alamat }}</td>
+                                        <td class="text-center">
+                                            @if($datas->kerjasama->isNotEmpty())
+                                                @if(optional($datas->kerjasama->first())->status == 'Aktif' || optional($datas->kerjasama->first())->status == 'aktif' || optional($datas->kerjasama->first())->status == 1)
+                                                    <span class="badge badge-success">{{ optional($datas->kerjasama->first())->status }}</span>
+                                                @else
+                                                    <span class="badge badge-danger">{{ optional($datas->kerjasama->first())->status }}</span>
+                                                @endif
+                                            @else
+                                                <span class="badge badge-danger">Data Tidak Ditemukan</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -51,9 +77,6 @@
             </div>
         </div>
     </div>
-    {{-- @include('MasterData.jenismitra.tambah')
-    @include('MasterData.jenismitra.update') --}}
-
     {{-- Modal Import Excel --}}
     <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
         aria-hidden="true">
@@ -92,7 +115,6 @@
                 <a href="" target="_blank">LLDIKTI IV</a> All rights reserved.</span>
         </div>
     </footer>
-    <!-- partial -->
 </div>
 @endsection
 
@@ -103,19 +125,21 @@
         $('#myTable').DataTable({
             dom: '<"top-toolbar"B>lfrtip',
             buttons: [{
-                    extend: 'excel',
-                    text: 'Cetak Excel',
-                    className: 'btn btn-info',
-                    title: 'Data Directory PT',
-                    messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
-                },{
-                    extend: 'pdf',
-                    text: 'Cetak PDF',
-                    className: 'btn btn-info',
-                    title: 'Data Directory PT',
-                    messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
-                }
-            ],
+                extend: 'excel',
+                text: 'Cetak Excel',
+                className: 'btn btn-info',
+                title: 'Data Kerjasama PTS ' + new Date().toLocaleDateString('en-GB').replace(/\//g, '-'),
+
+                messageTop: 'Tanggal dicetak: ' + new Date().toLocaleDateString(),
+            }, {
+                extend: 'pdf',
+                text: 'Cetak PDF',
+                orientation: 'landscape',
+                className: 'btn btn-info',
+                title: 'Data Kerjasama PTS ' + new Date().toLocaleDateString('en-GB').replace(/\//g, '-'),
+
+                messageTop: 'Tanggal dicetak: ' + new Date().toLocaleDateString(),
+            }],
             "pageLength": 10, // Tampilkan 5 data per halaman
             "lengthMenu": [10, 25, 50, 100], // Opsi filtering
             "language": {
@@ -137,18 +161,8 @@
         $("div.top-toolbar").prepend(`
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#importModal">
                             Import Data Excel
-                        </button>
+                 </button>
             `);
-    });
-    $(document).on('click', '#btn-edit-post', function () {
-        var id = $(this).data('id');
-        $.get('kelola-jenis-mitra/' + id + '/edit', function (data) {
-            $('#id').val(data.id);
-            $('#name_up').val(data.nama);
-            $('#keterangan_up').val(data.keterangan);
-            $('#updateForm').attr('action', '/kelola-jenis-mitra/' + data.id)
-            $('#editModal').modal('show');
-        });
     });
 
 </script>
@@ -168,5 +182,6 @@
     .dt-length {
         margin-top: 20px;
     }
+
 </style>
 @endsection

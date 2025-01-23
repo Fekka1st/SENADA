@@ -17,4 +17,8 @@ class direktori_PT extends Model
         'domisili',
         'provinsi'
     ];
+    public function kerjasama()
+    {
+        return $this->hasMany(data_kerjasama_PT::class, 'kode_pt', 'kode_pt');
+    }
 }

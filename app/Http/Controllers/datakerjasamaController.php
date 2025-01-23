@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class datakerjasamaController extends Controller
 {
     //
     public function index(){
+        $title = "Hapus Data!";
+        $text = "Kamu Yakin Mau Hapus Data?";
+        confirmDelete($title, $text);
+
         $datamou = DB::table('data_mous')
         ->join('statusdokuments', 'data_mous.status', '=', 'statusdokuments.id')
         ->join('jenismitras', 'data_mous.jenis_mitra', '=', 'jenismitras.id')
@@ -27,6 +32,24 @@ class datakerjasamaController extends Controller
         ->orderBy('data_mous.updated_at', 'desc')
         ->get();
 
+        // foreach ($datamou as $item) {
+        //     $currentDate = Carbon::now();
+        //     $expiryDate = Carbon::parse($item->kadaluarsa);
+
+        //     // Hitung selisih waktu antara sekarang dan tanggal kadaluarsa
+        //     $diffInMonths = $currentDate->diffInMonths($expiryDate, false); // False agar mempertimbangkan nilai negatif
+
+        //     if ($diffInMonths < 0) {
+        //         $item->status_nama = 'Kadaluarsa';
+        //     } elseif ($diffInMonths <= 3) {
+        //         $item->status_nama = 'Mendekati';
+        //     } else {
+        //         $item->status_nama = 'Masih Lama';
+        //     }
+        // }
+
+
+        // for filtering
         $status = statusdokument::all();
         $jenismitra = jenismitra::all();
         $jeniskerjasama = jeniskerjasama::all();
@@ -144,9 +167,13 @@ class datakerjasamaController extends Controller
         }
     }
 
-    public function edit($id){
-        $data = datamou::find($id);
-        return view('kerjasama-lldikti.update',compact('data'));
+    public function edit($id)
+    {
+        $data = datamou::findOrFail($id);
+        $status = statusdokument::all();
+        $jenismitra = jenismitra::all();
+        $jeniskerjasama = jeniskerjasama::all();
+        return view('Data-KerjaSama-LLDIKTI.update', compact('data', 'status', 'jenismitra', 'jeniskerjasama'));
     }
 
     public function update(Request $request, $id)
@@ -199,6 +226,7 @@ class datakerjasamaController extends Controller
                     $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
                         . '_' . now()->format('Ymd_His')
                         . '.' . $file->getClientOriginalExtension();
+
                     $filePath = $file->storeAs('uploads/mou', $fileName, 'public');
                     $validatedData['file'] = Storage::url($filePath);
 
@@ -270,12 +298,47 @@ class datakerjasamaController extends Controller
 
     public function exportCustom(){
     try {
-        return Excel::download(new exportdata_kerjasama_lldikti, 'data_mou_custom.xlsx');
+        return Excel::download(new exportdata_kerjasama_lldikti, 'DataMoU_KerjaSama_LLDIKTI'. date('Y-m-d_H-i-s').'.xlsx');
     } catch (\Throwable $e) {
          Log::error('Error saat mengekspor data MoU: ' . $e->getMessage(), [
         'trace' => $e->getTraceAsString()
     ]);
         return redirect()->back()->withErrors(['database' => 'Terjadi kesalahan saat mengekspor data: ' . $e->getMessage()]);
+    }
+}
+
+public function detail($id){
+    $data = datamou::find($id);
+    $data->jenis_mitra = jenismitra::find($data->jenis_mitra);
+    $data->jenis_kerjasama = jeniskerjasama::find($data->jenis_kerjasama);
+    $data->status = statusdokument::find($data->status);
+    return view('Data-KerjaSama-LLDIKTI.detail',compact('data'));
+}
+
+public function download($id)
+{
+    try {
+        $data = datamou::findOrFail($id);
+        if ($data->jenis_file === 'file_upload') {
+            $filePath = 'uploads/mou/' . basename($data->file);
+            if (Storage::disk('public')->exists($filePath)) {
+                return Storage::disk('public')->download($filePath);
+            } else {
+                return redirect()->back()->withErrors(['file' => 'File tidak ditemukan.']);
+            }
+        } elseif ($data->jenis_file === 'google_drive') {
+            return redirect()->away($data->file);
+
+        } else {
+            return redirect()->back()->withErrors(['file' => 'Jenis file tidak valid.']);
+        }
+
+    } catch (\Throwable $e) {
+        Log::error('Error saat mengunduh file: ' . $e->getMessage(), [
+            'id' => $id,
+            'trace' => $e->getTraceAsString()
+        ]);
+        return redirect()->back()->withErrors(['database' => 'Terjadi kesalahan saat mengunduh file. Silakan coba lagi.']);
     }
 }
 

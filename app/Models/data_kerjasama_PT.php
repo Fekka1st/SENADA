@@ -16,4 +16,8 @@ class data_kerjasama_PT extends Model
         'jumlah_ia',
         'status'
     ];
+    public function direktori()
+    {
+        return $this->belongsTo(direktori_PT::class, 'kode_pt', 'kode_pt');
+    }
 }

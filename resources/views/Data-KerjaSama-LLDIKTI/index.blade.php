@@ -66,11 +66,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Tanggal</th>
                                         <th>Nama Mitra</th>
                                         <th>Perihal</th>
                                         <th>Jenis Mitra</th>
                                         <th>Jenis Kerjaan</th>
+                                        <th>Tanggal</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -80,7 +80,7 @@
                                     @foreach ($datamou as $item => $data)
                                     <tr>
                                         <td>{{$item+1}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y') }}</td>
+
                                         <td class="font-weight-bold"
                                             style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                                             title="{{$data->nama_mitra}}">
@@ -93,6 +93,7 @@
                                         </td>
                                         <td> {{$data->jenis_mitra_nama}}</td>
                                         <td> {{$data->jenis_kerjasama_nama}}</td>
+                                        <td>{{ $data->mulai_berlaku }}</td>
                                         <td class="font-weight-medium">
                                             @if($data->status_nama=="LENGKAP")
                                             <span class="badge badge-success">{{$data->status_nama}}</span>
@@ -110,9 +111,8 @@
                                                     class="btn btn-warning">
                                                     <i class="fa-solid fa-file-pen"></i>
                                                 </a>
-                                                <a href="{{ route('kerjasama-lldikti.destroy',$data->id) }}"
-                                                    class="btn btn-danger" data-confirm-delete="true"><i
-                                                        class="fa-solid fa-trash"></i></a>
+                                                @method('DELETE')
+                                  <a href="{{ route('kerjasama-lldikti.destroy',$data->id) }}" class="btn btn-danger" data-confirm-delete="true"><i class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -178,14 +178,14 @@
                 extend: 'excel',
                 text: 'Cetak Excel',
                 className: 'btn btn-info',
-                title: 'Data Directory PT',
-                messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
+                title: 'Data Kerja Sama LLDIKTI IV',
+                messageTop: 'Tanggal DiCetak: ' + new Date().toLocaleDateString(),
             }, {
                 extend: 'pdf',
                 text: 'Cetak PDF',
                 className: 'btn btn-info',
-                title: 'Data Directory PT',
-                messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
+                title: 'Data Kerja Sama LLDIKTI IV',
+                messageTop: 'Tanggal DiCetak: ' + new Date().toLocaleDateString(),
             }],
             "pageLength": 10,
             "lengthMenu": [10, 25, 50, 100],

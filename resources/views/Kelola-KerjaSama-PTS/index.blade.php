@@ -19,6 +19,7 @@
                                 <thead>
                                     <tr>
                                         <th width=3% class="text-center">No</th>
+                                        <th class="text-center">Kode PT</th>
                                         <th class="text-center">Nama Perguruan Tinggi</th>
                                         <th class="text-center">MoU</th>
                                         <th class="text-center">MoA</th>
@@ -30,8 +31,9 @@
                                 <tbody> @foreach ($data_pt as $data => $datas)
                                     <tr id="index_{{ $datas->id }}">
                                         <td>{{$data + 1}}</td>
+                                        <td>{{$datas->kode_pt}}</td>
                                         <td>
-                                            {{$datas->kode_pt}}-{{$datas->nama_pt}}
+                                            {{$datas->nama_pt}}
                                         </td>
                                         <td class="text-center">{{$datas->jumlah_mou}}</td>
                                         <td class="text-center"> {{$datas->jumlah_moa}}</td>
@@ -118,13 +120,13 @@
                     extend: 'excel',
                     text: 'Cetak Excel',
                     className: 'btn btn-info',
-                    title: 'Data Kerja Sama PTS',
+                    title: 'Data Kerja Sama PTS'+ new Date().toLocaleDateString(),
                     messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
                 },{
                     extend: 'pdf',
                     text: 'Cetak PDF',
                     className: 'btn btn-info',
-                    title: 'Data Directory PT',
+                    title: 'Data Directory PT'+ new Date().toLocaleDateString(),
                     messageTop: 'Tanggal dibuat: ' + new Date().toLocaleDateString(),
                 }
             ],

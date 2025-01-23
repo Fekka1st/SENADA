@@ -154,7 +154,25 @@
                             <span class="menu-title">Data Kelola PT</span>
                         </a>
                     </li>
-                    <li class="nav-header">Master Data</li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="/kelola-PT">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Data Kelola KerjaSama <br>PEMDA</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="/kelola-PT">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Data KERMA PEMDA <br> Ruang Lingkup</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="kelola-pt">
+                        <a class="nav-link" href="/kelola-PT">
+                            <i class="ti-user menu-icon"></i>
+                            <span class="menu-title">Data KERMA PEMDA</span>
+                        </a>
+                    </li>
+                    <li class="nav-header mt-5">Master Data</li>
                     <li class="nav-item" id="kelola-pt">
                         <a class="nav-link" href="kelola-jenis-kerjasama">
                             <i class="ti-user menu-icon"></i>
@@ -167,6 +185,7 @@
                             <span class="menu-title">Jenis Mitra</span>
                         </a>
                     </li>
+
                     <li class="nav-item" id="kelola-pt">
                         <a class="nav-link" href="kelola-status-dokument">
                             <i class="ti-user menu-icon"></i>

@@ -11,8 +11,12 @@ class kelolaPTController extends Controller
 {
     //
     public function index(){
-        $data_pt = direktori_PT::all();
-        return view ('Kelola-Data-PT.index',compact('data_pt'));
+        try {
+            $data_pt = direktori_PT::with(['kerjasama'])->get();
+            return view ('Kelola-Data-PT.index',compact('data_pt'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->withErrors(['error' =>'Data Gagal Di Tampilkan!']);
+        }
     }
 
     public function import(Request $request)

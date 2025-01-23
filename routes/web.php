@@ -24,17 +24,19 @@ Route::middleware(['auth','role:1'])->group(function () {
     Route::resource('kelola-status-dokument', statusDokumentController::class);
 });
 
+
+
 Route::middleware(['auth', 'role:1,2'])->group(function () {
 
     // Dashboard Route
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard');
 
-    // Profile Routes
-    Route::prefix('profile')->group(function () {
-        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
+    // // Profile Routes
+    // Route::prefix('profile')->group(function () {
+    //     Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+    //     Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+    //     Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // });
 
     // Data Kerja Sama LLDIKTI Routes
     Route::prefix('Data-KerjaSama-lldikti')->name('kerjasama-lldikti.')->group(function () {
@@ -48,6 +50,7 @@ Route::middleware(['auth', 'role:1,2'])->group(function () {
         Route::get('/edit/{id}', [datakerjasamaController::class, 'edit'])->name('edit'); // Form edit data
         Route::get('/detail/{id}', [datakerjasamaController::class, 'detail'])->name('detail'); // Lihat detail data
         Route::get('/export', [datakerjasamaController::class, 'exportCustom'])->name('exportCustom');
+        Route::get('/download/{id}', [datakerjasamaController::class, 'download'])->name('download');
     });
 
     // Data Kerja Sama PTS Routes

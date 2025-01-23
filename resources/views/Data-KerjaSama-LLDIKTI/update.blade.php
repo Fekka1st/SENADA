@@ -74,7 +74,7 @@
                                     <div class="mb-3">
                                         <label for="inputMasaBerlaku" class="form-label"><strong>Masa Berlaku</strong></label>
                                         <div class="input-group">
-                                            <input type="number" name="masa_berlaku_mou_tahun" class="form-control @error('masa_berlaku_mou_tahun') is-invalid @enderror" id="inputMasaBerlaku" value="{{ old('masa_berlaku_mou_tahun', $data->masa_berlaku_mou_tahun) }}" placeholder="Masa Berlaku">
+                                            <input type="number" name="masa_berlaku_mou_tahun" class="form-control @error('masa_berlaku_mou_tahun') is-invalid @enderror" id="inputMasaBerlaku" value="{{ old('masa_berlaku_mou_tahun', $data->masa_berlaku) }}" placeholder="Masa Berlaku">
                                             <span class="input-group-text">Tahun</span>
                                         </div>
                                         @error('masa_berlaku_mou_tahun')
@@ -92,7 +92,7 @@
 
                                     <div class="mb-3">
                                         <label for="inputKadaluarsa" class="form-label"><strong>Kadaluarsa</strong></label>
-                                        <input type="date" name="tanggal_kadaluarsa" class="form-control @error('tanggal_kadaluarsa') is-invalid @enderror" id="inputKadaluarsa" value="{{ old('tanggal_kadaluarsa', $data->tanggal_kadaluarsa) }}">
+                                        <input type="date" name="tanggal_kadaluarsa" class="form-control @error('tanggal_kadaluarsa') is-invalid @enderror" id="inputKadaluarsa" value="{{ old('tanggal_kadaluarsa', $data->kadaluarsa) }}">
                                         @error('tanggal_kadaluarsa')
                                             <div class="form-text text-danger">{{ $message }}</div>
                                         @enderror
@@ -167,7 +167,7 @@
                                     class="form-control @error('link_dokument') is-invalid @enderror"
                                     id="inputGoogleDrive"
                                     placeholder="Masukkan link Google Drive di sini..."
-                                    rows="3">{{ old('link_dokument', $data->link_dokument) }}</textarea>
+                                    rows="3">{{ old('link_dokument', $data->file) }}</textarea>
                                 @error('link_dokument')
                                     <div class="form-text text-danger">{{ $message }}</div>
                                 @enderror
