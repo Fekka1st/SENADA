@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jenismitra;
+use App\Models\ruanglingkup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class jenisMitraController extends Controller
+class ruanglingkupController extends Controller
 {
     //
-    public function index()
-    {
+    public function index(){
         $title = "Hapus Data!";
         $text = "Kamu Yakin Mau Hapus Data?";
         confirmDelete($title, $text);
-
-        $jenis = jenismitra::latest()->get();
-        return view("MasterData.jenismitra.index", compact("jenis"));
+        
+        $ruanglingkup = ruanglingkup::latest()->get();
+        return view('MasterData.ruanglingkup.index',compact('ruanglingkup'));
     }
 
     public function store(Request $request)
@@ -29,53 +28,53 @@ class jenisMitraController extends Controller
             return back()->with('errors', $validator->messages()->all()[0]);
         }
         try {
-        $user = jenismitra::create([
-            "nama" => $request->name,
+        $user = ruanglingkup::create([
+            "nama_ruanglingkup" => $request->name,
             "keterangan" => $request->keterangan,
         ]);
 
-        return redirect("kelola-jenis-mitra")->with('success','Data berhasil ditambahkan!');
+        return redirect("kelola-ruang-lingkup")->with('success','Data berhasil ditambahkan!');
         } catch (\Throwable $th) {
-        return redirect("kelola-jenis-mitra")->with('errors','Error'.$th);
+        return redirect("kelola-ruang-lingkup")->with('errors','Error'.$th);
         }
 
     }
 
     public function edit($id)
     {
-        $data = jenismitra::find($id);
+        $data = ruanglingkup::find($id);
         return response()->json($data);
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            "name" => "required|string",
+            "nama_ruanglingkup" => "required|string",
             "keterangan" => "required|string",
         ]);
         try {
-            $jenis = jenismitra::findOrFail($id);
-            $jenis->nama = $request->name;
-            $jenis->keterangan = $request->keterangan;
-            $jenis->save();
-            return redirect("kelola-jenis-mitra")->with('success', 'Data berhasil dirubah!');
+            $data = ruanglingkup::findOrFail($id);
+            $data->nama_ruanglingkup = $request->name;
+            $data->keterangan = $request->keterangan;
+            $data->save();
+            return redirect("kelola-ruang-lingkup")->with('success', 'Data berhasil dirubah!');
         } catch (\Exception $e) {
-            return redirect("kelola-jenis-mitra")->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect("kelola-ruang-lingkup")->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
     public function destroy(string $id)
     {
-
-        $data = jenismitra::find($id);
+        $data = ruanglingkup::find($id);
         if ($data) {
             $data->delete();
-            return redirect("kelola-jenis-mitra")->with(
+            return redirect("kelola-ruang-lingkup")->with(
                 'success', 'Data berhasil dihapus.'
             );
         }
-        return redirect("kelola-jenis-mitra")->with(
+        return redirect("kelola-ruang-lingkup")->with(
             'error', 'Data tidak ditemukan.'
         );
     }
+
 }

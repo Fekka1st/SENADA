@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class dashboardController extends Controller
 {
-    //
     public function index(){
         if(Auth::check()){
             return view('dashboard');
@@ -15,3 +14,4 @@ class dashboardController extends Controller
         return abort(403, 'Tidak Mendapatkan Akses.');
     }
 }
+

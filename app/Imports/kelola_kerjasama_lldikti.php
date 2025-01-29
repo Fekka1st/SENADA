@@ -23,7 +23,6 @@ class kelola_kerjasama_lldikti implements ToCollection,WithStartRow,WithHeadingR
     * @param Collection $collection
     */
     public function collection(Collection $collection){
-
         $failedRows = [];
         foreach ($collection as $row) {
             try {

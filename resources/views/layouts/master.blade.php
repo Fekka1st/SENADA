@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+<!-- Shortcut Icon (Legacy) -->
+<link rel="shortcut icon" href="{{ asset('auth/img/logo_lldikti_iv.jpg') }}">
+
     <title>SENADA | LLDIKTI</title>
+
     <!-- plugins:css -->
     <link rel="stylesheet" href={{asset('asset/vendors/ti-icons/css/themify-icons.css')}}>
     <link rel="stylesheet" href={{asset('asset/vendors/css/vendor.bundle.base.css')}}>
@@ -21,8 +25,9 @@
     <link rel="stylesheet" href={{asset('asset/vendors/feather/feather.css')}}>
     <link rel="stylesheet" href={{asset('asset/css/vertical-layout-light/style.css')}}>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.1/css/dataTables.bootstrap5.css">
-    {{-- <link rel="shortcut icon" href={{asset('asset/images/favicon.png')}} /> --}}
+
     @yield('css')
+
 </head>
 
 <body class="sidebar-fixed">
@@ -125,140 +130,29 @@
         </nav>
 
         <div class="container-fluid page-body-wrapper">
-            @if(Auth()->user()->role == 1)
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-header">Menu</li>
-                    <li class="nav-item" id="dashboard">
-                        <a class="nav-link" href={{route('dashboard')}}>
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="data-kerjasama">
-                        <a class="nav-link" href={{route('kerjasama-lldikti.index')}}>
-                            <i class="ti-files menu-icon"></i>
-                            <h5 class="menu-title pt-2">Data KerjaSama<br>LLDIKTI</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="data-pt">
-                        <a class="nav-link" href="/Data-KerjaSama-pts">
-                            <i class="ti-bookmark menu-icon"></i>
-                            <span class="menu-title">Data Kerjasama PTS
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="/kelola-PT">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Data Kelola PT</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="/kelola-PT">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Data Kelola KerjaSama <br>PEMDA</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="/kelola-PT">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Data KERMA PEMDA <br> Ruang Lingkup</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="/kelola-PT">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Data KERMA PEMDA</span>
-                        </a>
-                    </li>
-                    <li class="nav-header mt-5">Master Data</li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="kelola-jenis-kerjasama">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Jenis Kerja Sama</span>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="kelola-jenis-mitra">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Jenis Mitra</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item" id="kelola-pt">
-                        <a class="nav-link" href="kelola-status-dokument">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Status Dokument</span>
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item" id="kelolamaster">
-                            <a class="nav-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="ti-user menu-icon"></i>
-                                <span class="menu-title">Kelola Data Master</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                          <div class="collapse" id="collapseExample">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><a class="nav-link" href="kelola-jenis-kerjasama">Jenis Kerja Sama</a></li>
-                                <li class="nav-item"><a class="nav-link" href="kelola-jenis-mitra">Jenis Kerja Sama <br> Mitra</a></li>
-                                <li class="nav-item"><a class="nav-link" href="kelola-status-dokument">Status Dokument</a></li>
-                              </ul>
-                          </div>
-                    </li> --}}
-                    <li class="nav-item" id="manajemen-user">
-                        <a class="nav-link" href="manajemen-user">
-                            <i class="ti-user menu-icon"></i>
-                            <span class="menu-title">Kelola User</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            @elseif (Auth()->user()->role == 2)
-            <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href={{route('dashboard')}}>
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Data-KerjaSama-lldikti">
-                            <i class="icon-grid menu-icon"></i>
-                            <h5 class="menu-title pt-2">Data KerjaSama<br>LLDIKTI</h5>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Data-KerjaSama-pts">
-                            <i class="icon-grid menu-icon"></i>
-                            <span class="menu-title">Data Perguruan Tinggi</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            @endif
+            @include('layouts.sidebar')
             @yield('content')
         </div>
     </div>
-    <script>
+
+    {{-- <script>
         $(document).ready(function () {
             const currentPath = window.location.pathname;
             const menuMap = {
                 '/dashboard': 'dashboard',
                 '/data-kerjasama-lldikti': 'data-kerjasama',
                 '/Data-KerjaSama-pts': 'data-pt',
-                '/manajemen-user': 'manajemen-user'
-                '/kelola-PT': 'kelola-pt'
-                '/kelola': 'kelolamaster'
+                '/manajemen-user': 'manajemen-user',
+                '/kelola-PT': 'kelola-pt',
+                '/kelola': 'kelolamaster',
+
             };
             const activeMenuId = menuMap[currentPath];
             if (activeMenuId) {
                 $(`#${activeMenuId}`).addClass('active');
             }
         });
-
-    </script>
+    </script> --}}
     <script src={{asset('asset/vendors/js/vendor.bundle.base.js')}}></script>
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>

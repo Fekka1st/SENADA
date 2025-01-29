@@ -22,15 +22,15 @@ class exportdata_kerjasama_lldikti implements FromCollection, WithHeadings
                 'Nomor Agenda Mitra' => $item->nomor_agenda_mitra,
                 'Nomor Agenda LLDIKTI' => $item->nomor_agenda_lldikti,
                 'Tahun' => $item->tahun,
-                'Jenis Mitra' => $item->jenisMitra->nama ?? '-', // Ambil nama dari relasi
-                'Jenis Kerjasama' => $item->jenisKerjasama->nama ?? '-', // Ambil nama dari relasi
-                'Status' => $item->statusDokumen->nama ?? '-', // Ambil nama dari relasi
+                'Jenis Mitra' => $item->jenisMitra->nama ?? '-',
+                'Jenis Kerjasama' => $item->jenisKerjasama->nama ?? '-',
+                'Status' => $item->statusDokumen->nama ?? '-',
                 'Masa Berlaku' => $item->masa_berlaku,
                 'Mulai Berlaku' => $item->mulai_berlaku,
                 'Kadaluarsa' => $item->kadaluarsa,
                 'Keterangan Dokumen' => $item->keterangan_dokumen,
                 'Jenis File' => $item->jenis_file,
-                'File' => $item->file, // Pastikan path valid jika file harus ditampilkan
+                'File' => $item->file,
                 'Bentuk Tindak Lanjut' => $item->bentuk_tindak_lanjut,
             ];
         });

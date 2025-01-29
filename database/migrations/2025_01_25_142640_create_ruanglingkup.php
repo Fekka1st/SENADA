@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_direktori_pt', function (Blueprint $table) {
+        Schema::create('ruanglingkup', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pt');
-            $table->string('nama_pt');
-            $table->string('akreditasi');
-            $table->string('alamat');
-            $table->string('jenis_pt');
-            $table->string('domisili');
-            $table->string('provinsi');
+            $table->string('nama_ruanglingkup');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_direktori_pt');
+        Schema::dropIfExists('ruanglingkup');
     }
 };

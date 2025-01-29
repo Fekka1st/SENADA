@@ -13,7 +13,7 @@ class KelolaPT implements ToCollection,WithStartRow,WithHeadingRow{
 
     public function startRow(): int
     {
-        return 3;
+        return 2;
     }
     /**
     * @param Collection $collection
@@ -21,27 +21,27 @@ class KelolaPT implements ToCollection,WithStartRow,WithHeadingRow{
 
     public function collection(Collection $collection)
     {
-
         foreach ($collection as $row) {
             try {
-                // Validasi kode_pt wajib ada
-                if (empty($row['1'])) {
+                if (empty($row['kode_pt'])) {
                     throw new \Exception('kode_pt cannot be empty');
                 }
-
                 direktori_PT::updateOrCreate(
-                    ['kode_pt' => $row[1]],
+                    ['kode_pt' => $row['kode_pt']],
                     [
-                        'nama_pt' => $row[2]?:'-',
-                        'akreditasi' => $row[3]?:'-',
-                        'alamat' => $row[4]?:'-',
-                        'jenis_pt' => $row[5]?:'-',
-                        'domisili' => $row[7]?:'-',
-                        'provinsi' => $row[8]?:'-',
+                        'nama_pt' => $row['nama_perguruan_tinggi']?:'-',
+                        'data_mou' => in_array($row['mou'], ['', null, '-']) ? 0 : $row['mou'],
+                        'data_moa' => in_array($row['moa'], ['', null, '-']) ? 0 : $row['moa'],
+                        'data_ia' => in_array($row['ia'], ['', null, '-']) ? 0 : $row['ia'],
+                        'akreditasi' => $row['akreditasi']?:'-',
+                        'alamat' => $row['alamat']?:'-',
+                        'jenis_pt' => $row['jenis_pt']?:'-',
+                        'domisili' => $row['domisili']?:'-',
+                        'provinsi' => $row['provinsi']?:'-',
+                        'status' => $row['status']?:'-'
                     ]
                 );
             } catch (\Throwable $e) {
-                // Log error dan baris yang gagal
                 Log::error('Error importing row:', [
                     'row' => $row->toArray(),
                     'error' => $e->getMessage(),

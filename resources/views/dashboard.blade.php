@@ -1,7 +1,5 @@
 @extends('layouts.master')
 
-@section('breadcum', 'Dashboard')
-
 @section('content')
 <div class="main-panel">
     <div class="content-wrapper">

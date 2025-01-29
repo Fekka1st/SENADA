@@ -17,9 +17,8 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!Auth::check()) {
-            abort(403, 'Harap Login Terlebih Dahulu');
+            abort(404);
         }
-
         if($roles){
             $userRole = Auth::user()->role;
             if (in_array($userRole, $roles)) {
@@ -31,7 +30,6 @@ class RoleMiddleware
             Auth::guard('web')->logout();
             abort(404);
         }
-
-        abort(403, 'Harap Login Terlebih Dahulu');
+        abort(403);
     }
 }

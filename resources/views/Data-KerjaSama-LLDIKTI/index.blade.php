@@ -19,7 +19,8 @@
                                         <!-- Tahun -->
                                         <div class="col-md-3">
                                             <label for="filterTahun">Tahun</label>
-                                            <input type="number" class="form-control" id="filterTahun" placeholder="Masukkan Tahun">
+                                            <input type="number" class="form-control" id="filterTahun"
+                                                placeholder="Masukkan Tahun">
                                         </div>
                                         <!-- Jenis Kerjasama -->
                                         <div class="col-md-3">
@@ -27,7 +28,7 @@
                                             <select class="form-control" id="filterJenisKerjasama">
                                                 <option value="">Pilih Jenis Kerjasama</option>
                                                 @foreach($jeniskerjasama as $kerjasama)
-                                                    <option value="{{ $kerjasama->nama }}">{{ $kerjasama->nama }}</option>
+                                                <option value="{{ $kerjasama->nama }}">{{ $kerjasama->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -37,7 +38,7 @@
                                             <select class="form-control" id="filterJenisMitra">
                                                 <option value="">Pilih Jenis Mitra</option>
                                                 @foreach($jenismitra as $mitra)
-                                                    <option value="{{ $mitra->nama }}">{{ $mitra->nama }}</option>
+                                                <option value="{{ $mitra->nama }}">{{ $mitra->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -47,15 +48,17 @@
                                             <select class="form-control" id="filterStatus">
                                                 <option value="">Pilih Status</option>
                                                 @foreach($status as $statuse)
-                                                    <option value="{{ $statuse->nama }}">{{ $statuse->nama }}</option>
+                                                <option value="{{ $statuse->nama }}">{{ $statuse->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-success" id="filterButton">Cari</button>
-                                            <button type="button" class="btn btn-secondary" id="resetButton">Reset</button>
+                                            <button type="button" class="btn btn-success"
+                                                id="filterButton">Cari</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                id="resetButton">Reset</button>
                                         </div>
                                     </div>
                                 </form>
@@ -69,7 +72,7 @@
                                         <th>Nama Mitra</th>
                                         <th>Perihal</th>
                                         <th>Jenis Mitra</th>
-                                        <th>Jenis Kerjaan</th>
+                                        <th>Jenis Kerja Sama</th>
                                         <th>Tanggal</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -81,12 +84,12 @@
                                     <tr>
                                         <td>{{$item+1}}</td>
 
-                                        <td class="font-weight-bold"
+                                        <td
                                             style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                                             title="{{$data->nama_mitra}}">
                                             {{$data->nama_mitra}}
                                         </td>
-                                        <td class="font-weight-bold"
+                                        <td
                                             style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                                             title="    {{$data->perihal}}">
                                             {{$data->perihal}}
@@ -109,10 +112,12 @@
                                                 </a>
                                                 <a href="{{ route('kerjasama-lldikti.edit', $data->id) }}"
                                                     class="btn btn-warning">
-                                                    <i class="fa-solid fa-file-pen"></i>
+                                                    <i class="fa-regular fa-pen-to-square"></i>
                                                 </a>
                                                 @method('DELETE')
-                                  <a href="{{ route('kerjasama-lldikti.destroy',$data->id) }}" class="btn btn-danger" data-confirm-delete="true"><i class="fa-solid fa-trash"></i></a>
+                                                <a href="{{ route('kerjasama-lldikti.destroy',$data->id) }}"
+                                                    class="btn btn-danger" data-confirm-delete="true"><i
+                                                        class="fa-solid fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -172,7 +177,7 @@
 
 <script>
     $(document).ready(function () {
-        var table =  $('#myTable').DataTable({
+        var table = $('#myTable').DataTable({
             dom: '<"top-toolbar"B>lfrtip',
             buttons: [{
                 extend: 'excel',
@@ -207,34 +212,34 @@
         });
 
         $('#filterButton').on('click', function () {
-        console.log('test');
-        var tahun = $('#filterTahun').val();
-        var jenisKerjasama = $('#filterJenisKerjasama').val();
-        var jenisMitra = $('#filterJenisMitra').val();
-        var status = $('#filterStatus').val();
+            console.log('test');
+            var tahun = $('#filterTahun').val();
+            var jenisKerjasama = $('#filterJenisKerjasama').val();
+            var jenisMitra = $('#filterJenisMitra').val();
+            var status = $('#filterStatus').val();
 
-        table.columns().search('');
-        if (tahun) {
-            table.columns(1).search(tahun, true, false);
-        }
-        if (jenisKerjasama) {
-            table.columns(5).search(jenisKerjasama, true, false);
-        }
-        if (jenisMitra) {
-            table.columns(4).search(jenisMitra, true, false);
-        }
-        if (status) {
-            table.columns(6).search(status, true, false);
-        }
+            table.columns().search('');
+            if (tahun) {
+                table.columns(1).search(tahun, true, false);
+            }
+            if (jenisKerjasama) {
+                table.columns(5).search(jenisKerjasama, true, false);
+            }
+            if (jenisMitra) {
+                table.columns(4).search(jenisMitra, true, false);
+            }
+            if (status) {
+                table.columns(6).search(status, true, false);
+            }
 
-        table.draw();
-    });
+            table.draw();
+        });
 
 
-    $('#resetButton').on('click', function () {
-        $('#filterForm')[0].reset();
-        table.columns().search('').draw();
-    });
+        $('#resetButton').on('click', function () {
+            $('#filterForm')[0].reset();
+            table.columns().search('').draw();
+        });
 
         $("div.top-toolbar").prepend(`
         <div class="btn-group" role="group" aria-label="Basic example">
@@ -249,6 +254,7 @@
         </div>
             `);
     });
+
 </script>
 @endsection
 
@@ -259,9 +265,8 @@
     }
 
     #filterCollapse {
-    position: relative;
-    margin-top: 20px;
-}
-
+        position: relative;
+        margin-top: 20px;
+    }
 </style>
 @endsection

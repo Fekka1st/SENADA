@@ -38,14 +38,14 @@
                                         <td>{{ $datas->kode_pt }}</td>
                                         <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
                                         title="{{ $datas->nama_pt }}">{{ $datas->nama_pt }}</td>
-                                        <td>{{ optional($datas->kerjasama->first())->jumlah_mou ?? '-' }}</td>
-                                        <td>{{ optional($datas->kerjasama->first())->jumlah_moa ?? '-' }}</td>
-                                        <td>{{ optional($datas->kerjasama->first())->jumlah_ia ?? '-' }}</td>
+                                        <td>{{ optional($datas->first())->jumlah_mou ?? '-' }}</td>
+                                        <td>{{ optional($datas->first())->jumlah_moa ?? '-' }}</td>
+                                        <td>{{ optional($datas->first())->jumlah_ia ?? '-' }}</td>
                                         <td>
                                             @php
-                                                $jumlah_mou = optional($datas->kerjasama->first())->jumlah_mou ?? 0;
-                                                $jumlah_moa = optional($datas->kerjasama->first())->jumlah_moa ?? 0;
-                                                $jumlah_ia = optional($datas->kerjasama->first())->jumlah_ia ?? 0;
+                                                $jumlah_mou = optional($datas->first())->jumlah_mou ?? 0;
+                                                $jumlah_moa = optional($datas->first())->jumlah_moa ?? 0;
+                                                $jumlah_ia = optional($datas->first())->jumlah_ia ?? 0;
                                                 $total = $jumlah_mou + $jumlah_moa + $jumlah_ia;
                                             @endphp
                                             {{ $total > 0 ? $total : '-' }}
@@ -96,6 +96,7 @@
                             <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls" required>
                             <small class="form-text text-muted">
                                 Pastikan file yang diupload adalah format Excel (.xlsx atau .xls).
+                                <a href="http://">Format Excel</a>
                             </small>
                         </div>
                 </div>

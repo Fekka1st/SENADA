@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -21,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
             'role' => RoleMiddleware::class,
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

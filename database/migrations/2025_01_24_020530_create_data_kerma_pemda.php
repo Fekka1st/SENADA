@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_direktori_pt', function (Blueprint $table) {
+        Schema::create('data_kerma_pemdas', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pt');
-            $table->string('nama_pt');
-            $table->string('akreditasi');
-            $table->string('alamat');
-            $table->string('jenis_pt');
-            $table->string('domisili');
+            $table->string('nama_pemada');
             $table->string('provinsi');
+            $table->integer('status'); // 0 = belum MoU, 1 = sudah MoU, 2 = dalam proses MoU
+            $table->integer('join_grup'); // 0 = belum join grup, 1 = sudah join grup
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_direktori_pt');
+        Schema::dropIfExists('data_kerma_pemda');
     }
 };

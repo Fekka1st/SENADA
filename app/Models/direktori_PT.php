@@ -11,12 +11,18 @@ class direktori_PT extends Model
     protected $fillable = [
         'kode_pt',
         'nama_pt',
+        'data_mou',
+        'data_moa',
+        'data_ia',
         'akreditasi',
         'alamat',
         'jenis_pt',
         'domisili',
-        'provinsi'
+        'provinsi',
+        'status'
     ];
+
+    
     public function kerjasama()
     {
         return $this->hasMany(data_kerjasama_PT::class, 'kode_pt', 'kode_pt');
